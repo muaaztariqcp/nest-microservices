@@ -9,6 +9,11 @@ export class AuthService {
   ) {}
 
   public async login() {
-    return lastValueFrom(this.authMicroservice.send('login', {}));
+    return lastValueFrom(
+      this.authMicroservice.send('login', {
+        username: 'abce',
+        password: 123456
+      })
+    );
   }
 }

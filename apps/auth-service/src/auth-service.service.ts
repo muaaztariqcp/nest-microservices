@@ -1,8 +1,20 @@
+import { UserRepository } from '@libs/db/repositories';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AuthServiceService {
-  public async login() {
-    return { token: 'ab' };
+  constructor(private userRepository: UserRepository) {}
+
+  public async login(loginData: { username: string; password: string }) {
+    const isUserVerified =
+      await this.userRepository.verifyCredentials(loginData);
+    if (isUserVerified) {
+      return {
+        token: 'abcdef'
+      };
+    }
+    return {
+      token: 'error'
+    };
   }
 }
